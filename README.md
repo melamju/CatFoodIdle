@@ -1,3 +1,6 @@
+# CatFoodIdle
+2D project computer graphics
+
 Extra functionalities:
 * game_level.cpp/.h  
 prepare different scenes
