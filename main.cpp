@@ -4,6 +4,8 @@
 #include "game.h"
 #include "resource_manager.h"
 
+#define GLFW_INCLUDE_GLCOREARB
+
 #include <iostream>
 
 // GLFW function declarations
@@ -11,9 +13,9 @@ void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mode);
 
 // The Width of the screen
-const unsigned int SCREEN_WIDTH = 800;
+const unsigned int SCREEN_WIDTH = 1200;
 // The height of the screen
-const unsigned int SCREEN_HEIGHT = 600;
+const unsigned int SCREEN_HEIGHT = 900;
 
 Game Breakout(SCREEN_WIDTH, SCREEN_HEIGHT);
 
@@ -28,7 +30,7 @@ int main(int argc, char *argv[])
 #endif
     glfwWindowHint(GLFW_RESIZABLE, false);
 
-    GLFWwindow* window = glfwCreateWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "Breakout", nullptr, nullptr);
+    GLFWwindow* window = glfwCreateWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "Cat Food Idle", nullptr, nullptr);
     glfwMakeContextCurrent(window);
 
     // glad: load all OpenGL function pointers
@@ -76,7 +78,7 @@ int main(int argc, char *argv[])
 
         // render
         // ------
-        glClearColor(1.0f, 0.0f, 1.0f, 1.0f);
+        glClearColor(1.0f, 0.855f, 0.725f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
         Breakout.Render();
 
