@@ -70,7 +70,7 @@ int main(int argc, char *argv[])
 
         // manage user input
         // -----------------
-        Breakout.ProcessInput(deltaTime);
+        Breakout.ProcessInput(deltaTime, window);
 
         // update game state
         // -----------------

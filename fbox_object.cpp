@@ -37,10 +37,10 @@ void FBoxObject::Upgrade(int id)
 
 glm::vec2 FBoxObject::Shake() {
     if(this->Shaking){
-        if(this->Position.x < this->InitPosX + 10){
-            Position.x++;
-            Position.y--;
-        } else if (this->Position.x >= this->InitPosX + 10){
+        if(this->Position.x < this->InitPosX + 25){
+            this->Position.x++;
+            this->Position.y--;
+        } else if (this->Position.x >= this->InitPosX + 25){
             this->Position.x = this->InitPosX;
             this->Position.y = this->InitPosY;
             this->setShaking(false);

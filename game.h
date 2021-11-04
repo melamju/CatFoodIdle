@@ -30,7 +30,7 @@ public:
     // initialize game state (load all shaders/textures/levels)
     void Init();
     // game loop
-    void ProcessInput(float dt);
+    void ProcessInput(float dt, GLFWwindow* window);
     void Update(float dt);
     void Render();
 };

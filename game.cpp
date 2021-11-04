@@ -6,8 +6,14 @@
 #include "resource_manager.h"
 #include "sprite_renderer.h"
 #include "fbox_object.h"
+#include <iostream>
 
 SpriteRenderer  *Renderer;
+
+// mouse state
+static int oldState = GLFW_RELEASE;
+double mouseX;
+double mouseY;
 
 // game objects
 int Money = 0;
@@ -54,12 +60,17 @@ void Game::Update(float dt)
     Box->Shake();
 }
 
-void Game::ProcessInput(float dt)
+void Game::ProcessInput(float dt, GLFWwindow* window)
 {
     if (this->State == GAME_ACTIVE) {
-        if (this->Keys[GLFW_KEY_SPACE]) {
-            if (!(Box->Shaking)) Box->setShaking(true);
-        }
+        //https://community.khronos.org/t/how-do-i-detect-only-1-mouse-press-with-glfw/75132/2
+        int newState = glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT);
+        glfwGetCursorPos(window, &mouseX, &mouseY);
+        if (newState == GLFW_RELEASE && oldState == GLFW_PRESS && Box->CheckCollisionMouse(mouseX, mouseY))
+            {
+                if (!(Box->Shaking)) Box->setShaking(true);
+            }
+        oldState = newState;
     }
 }
 
@@ -71,5 +82,6 @@ void Game::Render()
         Renderer->DrawSprite(myTexture, glm::vec2(0, 0), glm::vec2(800, 900), 0.0f, glm::vec3(1.0f, 1.0f, 1.0f));
         //position, height & width, color
         Box->Draw(*Renderer);
+        glFinish();
     }
 }
