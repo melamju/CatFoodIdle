@@ -6,8 +6,11 @@
 FBoxObject::FBoxObject()
         : GameObject(), UStatus(0), UCosts(30), FoodDrop(1), FoodValue(1), ACExist(false), ACSpeed(0.0f), Shaking(false){ }
 
-FBoxObject::FBoxObject(glm::vec2 pos, glm::vec2 size, Texture2D sprite, int initPosX, int initPosY)
-        : GameObject(pos, size, sprite, glm::vec3(1.0f)), UStatus(0), UCosts(30), FoodDrop(1), FoodValue(1), ACExist(false), ACSpeed(0.0f), Shaking(false), InitPosX(initPosX), InitPosY(initPosY) { }
+FBoxObject::FBoxObject(glm::vec2 pos, glm::vec2 size, Texture2D sprite)
+        : GameObject(pos, size, sprite, glm::vec3(1.0f), -120.0f), UStatus(0), UCosts(30), FoodDrop(1), FoodValue(1), ACExist(false), ACSpeed(0.0f), Shaking(false){
+    InitPosX = pos.x;
+    InitPosY = pos.y;
+}
 
 void FBoxObject::Upgrade(int id)
 {
@@ -37,10 +40,10 @@ void FBoxObject::Upgrade(int id)
 
 glm::vec2 FBoxObject::Shake() {
     if(this->Shaking){
-        if(this->Position.x < this->InitPosX + 25){
+        if(this->Position.x < this->InitPosX + 20){
             this->Position.x++;
             this->Position.y--;
-        } else if (this->Position.x >= this->InitPosX + 25){
+        } else if (this->Position.x >= this->InitPosX + 20){
             this->Position.x = this->InitPosX;
             this->Position.y = this->InitPosY;
             this->setShaking(false);

@@ -10,18 +10,15 @@
 
 class FoodObject : public GameObject {
 public:
-    // food vars
-    int UStatus;
-    Texture2D Texture;
-    float Value;
-
-    bool ACExist = false;
-    float ACSpeed;
+    // food var
+    int InitPosX, InitPosY, Timer;
 
     // constructor(s)
     FoodObject();
-    // upgrades food texture
-    void Upgrade();
+    FoodObject(glm::vec2 pos, glm::vec2 size, Texture2D sprite, float rot);
+
+    // functions
+    glm::vec2 Move(float dt);
 
 };
 

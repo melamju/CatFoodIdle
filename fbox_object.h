@@ -17,14 +17,15 @@ public:
     unsigned int UStatus, UCosts, FoodDrop, FoodValue, InitPosX, InitPosY;
     bool Shaking;
 
-    //Auto Clicker
+    // auto clicker
     bool ACExist;
     float ACSpeed;
 
     // constructor(s)
     FBoxObject();
-    FBoxObject(glm::vec2 pos, glm::vec2 size, Texture2D sprite, int initPosX, int initPosY);
-    // upgrades foodbox texture
+    FBoxObject(glm::vec2 pos, glm::vec2 size, Texture2D sprite);
+
+    // functions
     void Upgrade(int id);
     glm::vec2 Shake();
     float DoAC();
