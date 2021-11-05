@@ -7,6 +7,7 @@
 #include "sprite_renderer.h"
 #include "fbox_object.h"
 #include "food_object.h"
+#include <vector>
 #include <iostream>
 
 SpriteRenderer  *Renderer;
@@ -19,7 +20,9 @@ double mouseY;
 // game objects
 int Money = 0;
 FBoxObject *Box;
-FoodObject *Food [1];
+    // food array
+    std::vector<FoodObject*> FoodArray = {};
+    int IterFood = 0;
 
 Game::Game(unsigned int width, unsigned int height)
         : State(GAME_ACTIVE), Keys(), Width(width), Height(height)
@@ -57,16 +60,26 @@ void Game::Init()
     // load objects
     Box = new FBoxObject(glm::vec2(400, 100), glm::vec2(250,250), ResourceManager::GetTexture("box"));
     // load FoodObjects in array
-    FoodObject *fo = new FoodObject(glm::vec2(400, 350), glm::vec2(50, 50), ResourceManager::GetTexture("food"), 45.0f);
-    Food[0] = fo;
-    std::cout << Food[0];
+    for(int i = 0; i < 10; i++){
+        //420,330
+        //400,230
+        int ranX = rand() % 20 + 400;
+        int ranY = rand() % 100 + 230;
+        auto *fo = new FoodObject(glm::vec2(ranX, ranY), glm::vec2(50, 50), ResourceManager::GetTexture("food"), 45.0f);
+        FoodArray.push_back(fo);
+    }
 }
 
 void Game::Update(float dt)
 {
     Box->Shake();
-    if (Food[0]->Timer < 180){
-        Food[0]->Move(dt);
+    for (auto &f : FoodArray) {
+        if (f->Position.y < 670) {
+            f->Move(dt);
+        } else {
+            f->Destroyed = true;
+            f->Move(dt);
+        }
     }
 }
 
@@ -80,7 +93,15 @@ void Game::ProcessInput(float dt, GLFWwindow* window)
             {
                 Money++;
                 if (!(Box->Shaking)) Box->setShaking(true);
-                Food[0]->Destroyed=(false);
+
+                if (IterFood <= FoodArray.size()-1) {
+                    FoodArray[IterFood]->Destroyed = false;
+                    if (IterFood!=9){
+                        IterFood++;
+                    } else {
+                        IterFood = 0;
+                    }
+                }
             }
         oldState = newState;
     }
@@ -101,7 +122,9 @@ void Game::Render()
         Box->Draw(*Renderer);
         glFinish();
 
-        if (!Food[0]->Destroyed) Food[0]->Draw(*Renderer);
+        for (auto &f : FoodArray) {
+            if (!f->Destroyed) f->Draw(*Renderer);
+        }
         glFinish();
     }
 }

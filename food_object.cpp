@@ -17,7 +17,6 @@ FoodObject::FoodObject(glm::vec2 pos, glm::vec2 size, Texture2D sprite, float ro
     Velocity = glm::vec2 (-350.0f, 350.0f);
     InitPosX = pos.x;
     InitPosY = pos.y;
-    Timer = 0;
 }
 
 glm::vec2 FoodObject::Move(float dt) {
@@ -25,7 +24,6 @@ glm::vec2 FoodObject::Move(float dt) {
         this->Position += Velocity * dt;
         Velocity.x += 1;
         Velocity.y += 5;
-        Timer++;
     } else {
         Velocity = glm::vec2 (-350.0f, 350.0f);
         Position.x = InitPosX;
