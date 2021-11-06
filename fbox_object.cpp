@@ -4,10 +4,10 @@
 
 #include "fbox_object.h"
 FBoxObject::FBoxObject()
-        : GameObject(), UStatus(0), UCosts(30), FoodDrop(1), FoodValue(1), ACExist(false), ACSpeed(0.0f), Shaking(false){ }
+        : GameObject(), UCosts(30), FoodDrop(1), FoodValue(1), ACExist(false), ACSpeed(0), Shaking(false){ }
 
 FBoxObject::FBoxObject(glm::vec2 pos, glm::vec2 size, Texture2D sprite)
-        : GameObject(pos, size, sprite, glm::vec3(1.0f), -120.0f), UStatus(0), UCosts(30), FoodDrop(1), FoodValue(1), ACExist(false), ACSpeed(0.0f), Shaking(false){
+        : GameObject(pos, size, sprite, glm::vec3(1.0f), -120.0f), UCosts(30), FoodDrop(1), FoodValue(1), ACExist(false), ACSpeed(0), Shaking(false){
     InitPosX = pos.x;
     InitPosY = pos.y;
 }
@@ -16,21 +16,17 @@ void FBoxObject::Upgrade(int id)
 {
     switch (id) {
         case 0:
-            FoodDrop = FoodDrop * 2;
+            FoodDrop++;
             break;
         case 1:
-            if (FoodValue != 1){
-                FoodValue = FoodValue + round(FoodValue * 0.5);
-            } else {
-                FoodValue++;
-            }
+            FoodValue++;
             break;
         case 2:
-            if (ACExist){
+            if (!ACExist){
                 ACExist = true;
-                ACSpeed = 2;
+                ACSpeed = 1;
             } else {
-                ACSpeed -= 0.5;
+                ACSpeed++;
             }
             break;
     }

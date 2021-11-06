@@ -8,6 +8,7 @@
 #include "fbox_object.h"
 #include "food_object.h"
 #include "cat_object.h"
+#include "button_object.h"
 #include <vector>
 #include <iostream>
 
@@ -19,7 +20,7 @@ double mouseX;
 double mouseY;
 
 // game objects
-int Money = 0;
+ unsigned int Money = 0;
 FBoxObject *Box;
     // food array
     std::vector<FoodObject*> FoodArray = {};
@@ -27,6 +28,8 @@ FBoxObject *Box;
     // cat array
     std::vector<CatObject*> CatArray = {};
     int CatCount = 0;
+    // button array
+    std::vector<ButtonObject*> BArray = {};
 
 Game::Game(unsigned int width, unsigned int height)
         : State(GAME_ACTIVE), Keys(), Width(width), Height(height)
@@ -62,6 +65,8 @@ void Game::Init()
     ResourceManager::LoadTexture("img/bowl-back.png", true, "bowl-back");
     ResourceManager::LoadTexture("img/food.png", true, "food");
     ResourceManager::LoadTexture("img/cat1.png", true, "cat1");
+    ResourceManager::LoadTexture("img/button.png", true, "button");
+    ResourceManager::LoadTexture("img/quad.png", true, "quad");
 
 
     // load objects
@@ -80,6 +85,13 @@ void Game::Init()
         int ranY = rand() % 50 + 600; //rand spawn pos
         auto *co = new CatObject(glm::vec2(800, ranY), glm::vec2(200, 200), ResourceManager::GetTexture("cat1"));
         CatArray.push_back(co);
+    }
+    // load ButtonObjects in array
+    int y = 100;
+    for(int i = 0; i < 3; i++) {
+        auto *bo = new ButtonObject(glm::vec2(810, y), glm::vec2(380, 200), ResourceManager::GetTexture("button"), i);
+        BArray.push_back(bo);
+        y += 210;
     }
 }
 
@@ -117,20 +129,35 @@ void Game::ProcessInput(float dt, GLFWwindow* window)
         //https://community.khronos.org/t/how-do-i-detect-only-1-mouse-press-with-glfw/75132/2
         int newState = glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT);
         glfwGetCursorPos(window, &mouseX, &mouseY);
-        if (newState == GLFW_RELEASE && oldState == GLFW_PRESS && Box->CheckCollisionMouse(mouseX, mouseY))
-            {
-                Money++;
+        if (newState == GLFW_RELEASE && oldState == GLFW_PRESS && Box->CheckCollisionMouse(mouseX, mouseY)){
+
                 if (!(Box->Shaking)) Box->setShaking(true);
 
-                if (IterFood <= FoodArray.size()-1) {
-                    FoodArray[IterFood]->Destroyed = false;
-                    if (IterFood!=9){
-                        IterFood++;
-                    } else {
-                        IterFood = 0;
+                for (int i = 0; i < Box->FoodDrop; i++) {
+                    if (IterFood <= FoodArray.size() - 1) {
+                        FoodArray[IterFood]->Destroyed = false;
+                        Money += Box->FoodValue;
+                        if (IterFood != 9) {
+                            IterFood++;
+                        } else {
+                            IterFood = 0;
+                        }
                     }
                 }
-            }
+                std::cout << "M " << Money << "\n";
+                std::cout << "FValue " << Box->FoodValue << "\n";
+                std::cout << "FDrop " << Box->FoodDrop << "\n";
+                std::cout << "ACExist " << Box->ACExist << "\n";
+                std::cout << "ACSpeed " << Box->ACSpeed << "\n";
+
+        } else if (newState == GLFW_RELEASE && oldState == GLFW_PRESS && BArray[0]->CheckCollisionMouse(mouseX, mouseY)) {
+            Box->Upgrade(0); // Food drop rate
+        } else if (newState == GLFW_RELEASE && oldState == GLFW_PRESS && BArray[1]->CheckCollisionMouse(mouseX, mouseY)) {
+            Box->Upgrade(1); // Food value
+        } else if (newState == GLFW_RELEASE && oldState == GLFW_PRESS && BArray[2]->CheckCollisionMouse(mouseX, mouseY)) {
+            Box->Upgrade(2); // Auto clicker existence & speed
+        }
+
         oldState = newState;
     }
 }
@@ -165,6 +192,15 @@ void Game::Render()
             if(!c->Destroyed) c->Draw(*Renderer);
         }
         glFinish();
+
+        // draw quad to hide outside spawning cats
+        myTexture = ResourceManager::GetTexture("quad");
+        Renderer->DrawSprite(myTexture, glm::vec2(800, 0), glm::vec2(400, 900), 0.0f, glm::vec3(1.0f, 1.0f, 1.0f));
+
+        // draw buttons
+        for(auto &b :BArray) {
+            if(!b->Destroyed) b->Draw(*Renderer);
+        }
 
     }
 }

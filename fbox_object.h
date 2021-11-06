@@ -14,12 +14,12 @@
 class FBoxObject : public GameObject {
 public:
     // foodbox vars
-    unsigned int UStatus, UCosts, FoodDrop, FoodValue, InitPosX, InitPosY;
+    unsigned int UCosts, FoodDrop, FoodValue, InitPosX, InitPosY;
     bool Shaking;
 
     // auto clicker
     bool ACExist;
-    float ACSpeed;
+    int ACSpeed;
 
     // constructor(s)
     FBoxObject();
