@@ -28,7 +28,7 @@ public:
     // functions
     void Upgrade(int id);
     glm::vec2 Shake();
-    float DoAC();
+    bool DoAC();
     void setShaking(bool v);
 };
 

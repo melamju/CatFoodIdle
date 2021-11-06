@@ -13,6 +13,7 @@
 #include <iostream>
 
 SpriteRenderer  *Renderer;
+double dtTracker;
 
 // mouse state
 static int oldState = GLFW_RELEASE;
@@ -20,8 +21,9 @@ double mouseX;
 double mouseY;
 
 // game objects
- unsigned int Money = 0;
+unsigned int Money = 0;
 FBoxObject *Box;
+GameObject *FootPrint;
     // food array
     std::vector<FoodObject*> FoodArray = {};
     int IterFood = 0;
@@ -67,10 +69,12 @@ void Game::Init()
     ResourceManager::LoadTexture("img/cat1.png", true, "cat1");
     ResourceManager::LoadTexture("img/button.png", true, "button");
     ResourceManager::LoadTexture("img/quad.png", true, "quad");
+    ResourceManager::LoadTexture("img/foot-print.png", true, "foot-print");
 
 
     // load objects
     Box = new FBoxObject(glm::vec2(400, 100), glm::vec2(250,250), ResourceManager::GetTexture("box"));
+    FootPrint = new GameObject(glm::vec2(500, 200), glm::vec2(50, 50), ResourceManager::GetTexture("foot-print"));
     // load FoodObjects in array
     for(int i = 0; i < 10; i++){
         //420,330 max
@@ -97,6 +101,8 @@ void Game::Init()
 
 void Game::Update(float dt)
 {
+    std::cout << Money << "\n";
+
     Box->Shake();
     //food moving
     for (auto &f : FoodArray) {
@@ -119,6 +125,27 @@ void Game::Update(float dt)
             c->Destroyed = true;
             c->Move(dt);
         }
+    }
+
+    // Auto clicker
+    if(Box->ACExist){
+        if ((int)glfwGetTime() % Box->ACSpeed) {
+            FootPrint->Destroyed = true;
+        } else {
+            FootPrint->Destroyed = false;
+
+            if(dtTracker >= 1){
+                int randX = rand() % 100 + 450;
+                int randY = rand() % 200 + 100;
+                FootPrint->Position = glm::vec2 (randX, randY);
+                dtTracker = 0;
+                Money += Box->FoodValue;
+            } else {
+                dtTracker += dt;
+            }
+        }
+    } else {
+        FootPrint->Destroyed = true;
     }
 
 }
@@ -144,11 +171,6 @@ void Game::ProcessInput(float dt, GLFWwindow* window)
                         }
                     }
                 }
-                std::cout << "M " << Money << "\n";
-                std::cout << "FValue " << Box->FoodValue << "\n";
-                std::cout << "FDrop " << Box->FoodDrop << "\n";
-                std::cout << "ACExist " << Box->ACExist << "\n";
-                std::cout << "ACSpeed " << Box->ACSpeed << "\n";
 
         } else if (newState == GLFW_RELEASE && oldState == GLFW_PRESS && BArray[0]->CheckCollisionMouse(mouseX, mouseY)) {
             Box->Upgrade(0); // Food drop rate
@@ -176,6 +198,11 @@ void Game::Render()
 
         // draw objects
         Box->Draw(*Renderer);
+        glFinish();
+
+        if(!FootPrint->Destroyed) {
+            FootPrint->Draw(*Renderer);
+        }
         glFinish();
 
         for (auto &f : FoodArray) {
