@@ -11,7 +11,7 @@
 class FoodObject : public GameObject {
 public:
     // food var
-    int InitPosX, InitPosY;
+    float InitPosX, InitPosY;
 
     // constructor(s)
     FoodObject();

@@ -33,5 +33,6 @@ public:
     void ProcessInput(float dt, GLFWwindow* window);
     void Update(float dt);
     void Render();
+    void CatSpawn();
 };
 #endif //CATFOODIDLE_GAME_H
