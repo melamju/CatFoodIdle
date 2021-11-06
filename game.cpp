@@ -173,11 +173,11 @@ void Game::ProcessInput(float dt, GLFWwindow* window)
                 }
 
         } else if (newState == GLFW_RELEASE && oldState == GLFW_PRESS && BArray[0]->CheckCollisionMouse(mouseX, mouseY)) {
-            Box->Upgrade(0); // Food drop rate
+            Money -= Box->Upgrade(0, Money); // Food drop rate
         } else if (newState == GLFW_RELEASE && oldState == GLFW_PRESS && BArray[1]->CheckCollisionMouse(mouseX, mouseY)) {
-            Box->Upgrade(1); // Food value
+            Money -= Box->Upgrade(1, Money); // Food value
         } else if (newState == GLFW_RELEASE && oldState == GLFW_PRESS && BArray[2]->CheckCollisionMouse(mouseX, mouseY)) {
-            Box->Upgrade(2); // Auto clicker existence & speed
+            Money -= Box->Upgrade(2, Money); // Auto clicker existence & speed
         }
 
         oldState = newState;
@@ -228,7 +228,6 @@ void Game::Render()
         for(auto &b :BArray) {
             if(!b->Destroyed) b->Draw(*Renderer);
         }
-
     }
 }
 

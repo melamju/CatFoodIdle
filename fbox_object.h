@@ -14,21 +14,23 @@
 class FBoxObject : public GameObject {
 public:
     // foodbox vars
-    unsigned int UCosts, FoodDrop, FoodValue, InitPosX, InitPosY;
+    unsigned int FoodDrop, FoodValue, InitPosX, InitPosY;
     bool Shaking;
 
     // auto clicker
     bool ACExist;
     int ACSpeed;
 
+    // Upgrade costs
+    unsigned int CFoodDrop = 15, CFoodValue = 30, CAC = 20;
+
     // constructor(s)
     FBoxObject();
     FBoxObject(glm::vec2 pos, glm::vec2 size, Texture2D sprite);
 
     // functions
-    void Upgrade(int id);
+    unsigned int Upgrade(int id, unsigned int money);
     glm::vec2 Shake();
-    bool DoAC();
     void setShaking(bool v);
 };
 
