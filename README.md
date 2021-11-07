@@ -20,4 +20,4 @@ My additions to the learnOpenGL tutorial are all the special objects, which inhe
 
 Other sources of small code snippets are mentioned in the comments before the respective code.
 
-
+The project directory "application-zip" contains a zip-file with the Cat Food Idle game executable to run without building the project. 
