@@ -1,7 +1,3 @@
-//
-// Created by Eli on 21.10.2021.
-//
-
 #include "shader.h"
 
 #include <iostream>

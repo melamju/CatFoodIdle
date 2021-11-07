@@ -1,7 +1,3 @@
-//
-// Created by Eli on 27.10.2021.
-//
-
 #ifndef CATFOODIDLE_SPRITE_RENDERER_H
 #define CATFOODIDLE_SPRITE_RENDERER_H
 

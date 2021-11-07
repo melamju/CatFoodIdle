@@ -1,7 +1,3 @@
-//
-// Created by Eli on 21.10.2021.
-//
-
 #ifndef CATFOODIDLE_RESOURCE_MANAGER_H
 #define CATFOODIDLE_RESOURCE_MANAGER_H
 

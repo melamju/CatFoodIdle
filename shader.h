@@ -1,7 +1,3 @@
-//
-// Created by Eli on 21.10.2021.
-//
-
 #ifndef CATFOODIDLE_SHADER_H
 #define CATFOODIDLE_SHADER_H
 

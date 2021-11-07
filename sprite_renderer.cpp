@@ -1,7 +1,3 @@
-//
-// Created by Eli on 27.10.2021.
-//
-
 #include "sprite_renderer.h"
 
 #define GLFW_INCLUDE_GLCOREARB

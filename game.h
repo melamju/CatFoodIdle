@@ -1,7 +1,3 @@
-//
-// Created by Eli on 21.10.2021.
-//
-
 #ifndef CATFOODIDLE_GAME_H
 #define CATFOODIDLE_GAME_H
 
