@@ -14,7 +14,7 @@ The auto clicker is visible through a cat foot print appearing on the food box, 
 
 All images were drawn by myself, using Clip Studio Paint. (https://www.clipstudio.net)
 
-This pogramm is using the learnOpenGL.com 2D game template from "Setting up" up to "Collisions - Collision Detection" (https://learnopengl.com/In-Practice/2D-Game/Setting-up) - (https://learnopengl.com/In-Practice/2D-Game/Collisions/Collision-detection)  
+This programm is using the learnOpenGL.com 2D game template from "Setting up" up to "Collisions - Collision Detection" (https://learnopengl.com/In-Practice/2D-Game/Setting-up) - (https://learnopengl.com/In-Practice/2D-Game/Collisions/Collision-detection)  
 
 My additions to the learnOpenGL tutorial are all the special objects, which inherit from the GameObject class and most of the functionality in the game.cpp methods.  
 
