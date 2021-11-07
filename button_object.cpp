@@ -5,13 +5,14 @@
 #include "button_object.h"
 
 ButtonObject::ButtonObject()
-    : GameObject(){
+        : GameObject() {
 
 }
 
 ButtonObject::ButtonObject(glm::vec2 pos, glm::vec2 size, Texture2D sprite, int id)
-    : GameObject(pos, size, sprite){
+        : GameObject(pos, size, sprite) {
     IDButton = id;
+    Available = false;
 
 }
 

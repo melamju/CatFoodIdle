@@ -12,9 +12,11 @@ class ButtonObject : public GameObject {
 public:
     // button var
     int IDButton;
+    bool Available;
 
     // constructor(s)
     ButtonObject();
+
     ButtonObject(glm::vec2 pos, glm::vec2 size, Texture2D sprite, int id);
 
     // functions

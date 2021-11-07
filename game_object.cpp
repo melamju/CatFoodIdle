@@ -17,8 +17,7 @@ void GameObject::Draw(SpriteRenderer &renderer) {
     renderer.DrawSprite(this->Sprite, this->Position, this->Size, this->Rotation, this->Color);
 }
 
-bool GameObject::CheckCollisionMouse(double x, double y)
-{
+bool GameObject::CheckCollisionMouse(double x, double y) {
     //https://stackoverflow.com/questions/37494364/simple-way-to-determine-what-object-a-mouse-is-pointed-over-opengl-freeglut
     // The mouse is inside if the coordinates are 'inside' all walls
 

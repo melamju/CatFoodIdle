@@ -15,6 +15,7 @@ public:
 
     // constructor(s)
     FoodObject();
+
     FoodObject(glm::vec2 pos, glm::vec2 size, Texture2D sprite, float rot);
 
     // functions

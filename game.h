@@ -4,6 +4,7 @@
 
 #ifndef CATFOODIDLE_GAME_H
 #define CATFOODIDLE_GAME_H
+
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
@@ -17,22 +18,31 @@ enum GameState {
 // Game holds all game-related state and functionality.
 // Combines all game-related data into a single class for
 // easy access to each of the components and manageability.
-class Game
-{
+class Game {
 public:
     // game state
-    GameState               State;
-    bool                    Keys[1024];
-    unsigned int            Width, Height;
+    GameState State;
+    bool Keys[1024];
+    unsigned int Width, Height;
+
     // constructor/destructor
     Game(unsigned int width, unsigned int height);
+
     ~Game();
+
     // initialize game state (load all shaders/textures/levels)
     void Init();
+
     // game loop
-    void ProcessInput(float dt, GLFWwindow* window);
+    void ProcessInput(float dt, GLFWwindow *window);
+
     void Update(float dt);
+
     void Render();
+
     void CatSpawn();
+
+    void loadAllTextures();
 };
+
 #endif //CATFOODIDLE_GAME_H

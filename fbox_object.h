@@ -26,11 +26,14 @@ public:
 
     // constructor(s)
     FBoxObject();
+
     FBoxObject(glm::vec2 pos, glm::vec2 size, Texture2D sprite);
 
     // functions
     unsigned int Upgrade(int id, unsigned int money);
+
     glm::vec2 Shake();
+
     void setShaking(bool v);
 };
 
